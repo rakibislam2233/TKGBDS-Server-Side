@@ -63,7 +63,7 @@ async function run() {
     });
     app.get("/get-all-donar", async (req, res) => {
       const allDonar = await userCollection.find().toArray();
-      const result = allDonar.filter((donar) => donar.role !== "user");
+      const result = allDonar.filter((donar) => donar.role === "donar");
       res.send(result);
     });
     /**get one user query on email form database */
@@ -85,7 +85,7 @@ async function run() {
       const info = req.body;
       if (info.bloodGroup === "" && info.district === "" && info.area === "") {
         const donars = await userCollection.find().toArray();
-        const result = donars.filter((donar) => donar.role !== "user");
+        const result = donars.filter((donar) => donar.role === "donar");
         res.send(result);
         return;
       } else if (info.district === "" && info.area === "") {
@@ -96,25 +96,25 @@ async function run() {
       } else if (info.bloodGroup === "" && info.area === "") {
         const query = { district: info.district };
         const donars = await userCollection.find(query).toArray();
-        const result = donars.filter((donar) => donar.role !== "user");
+        const result = donars.filter((donar) => donar.role === "donar");
         res.send(result);
         return;
       } else if (info.district === "" && info.district === "") {
         const query = { area: info.area };
         const donars = await userCollection.find(query).toArray();
-        const result = donars.filter((donar) => donar.role !== "user");
+        const result = donars.filter((donar) => donar.role === "donar");
         res.send(result);
         return;
       } else if (info.bloodGroup === "") {
         const query = { area: info.area, district: info.district };
         const donars = await userCollection.find(query).toArray();
-        const result = donars.filter((donar) => donar.role !== "user");
+        const result = donars.filter((donar) => donar.role === "donar");
         res.send(result);
         return;
       } else if (info.area === "") {
         const query = { bloodGroup: info.bloodGroup, district: info.district };
         const donars = await userCollection.find(query).toArray();
-        const result = donars.filter((donar) => donar.role !== "user");
+        const result = donars.filter((donar) => donar.role === "donar");
         res.send(result);
         return;
       } else if (info.district === "") {
@@ -125,7 +125,7 @@ async function run() {
           area: info.area,
         };
         const donars = await userCollection.find(query).toArray();
-        const result = donars.filter((donar) => donar.role !== "user");
+        const result = donars.filter((donar) => donar.role === "donar");
         res.send(result);
       }
     });
