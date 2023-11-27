@@ -58,8 +58,9 @@ async function run() {
     });
     //all donar data get form database;
     app.get("/get-all-user", async (req, res) => {
-      const allDonar = await userCollection.find().toArray();
-      res.send(allDonar);
+      const allUser = await userCollection.find().toArray();
+      const user = allUser.filter(donar => donar.role !== 'admin')
+      res.send(user);
     });
     app.get("/get-all-donar", async (req, res) => {
       const allDonar = await userCollection.find().toArray();
