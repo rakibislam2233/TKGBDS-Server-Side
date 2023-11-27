@@ -43,7 +43,7 @@ async function run() {
       .db("TKGBDSDB")
       .collection("applicationBlood");
       const galleryImageCollection = client.db("TKGBDSDB").collection("galleryImage");
-
+    const feedBackCollection = client.db("TKGBDSDB").collection("feedBack");
     //all users data inserted form database
     app.put("/donar/:email", async (req, res) => {
       const email = req.params.email;
@@ -195,6 +195,16 @@ async function run() {
     })
     app.get('/gallery-image',async (req, res)=>{
       const result = await galleryImageCollection.find().toArray()
+      res.send(result);
+    })
+    //feedback
+    app.post('/feedback', async (req, res) => {
+      const feedback = req.body;
+      const result = await feedBackCollection.insertOne(feedback);
+      res.send(result);
+    })
+    app.get('/feedback',async (req, res)=>{
+      const result = await feedBackCollection.find().toArray()
       res.send(result);
     })
     //nodemailer code here;
